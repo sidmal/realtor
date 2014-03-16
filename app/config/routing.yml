@@ -1,0 +1,8 @@
+dictionary:
+    resource: "@DictionaryBundle/Resources/config/routing.yml"
+    prefix:   /
+
+branches:
+    resource: "@DictionaryBundle/Controller/BranchesController.php"
+    type: annotation
+
