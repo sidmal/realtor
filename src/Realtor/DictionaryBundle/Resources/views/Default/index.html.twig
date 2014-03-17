@@ -1,0 +1,18 @@
+{% extends '::layout.html.twig' %}
+
+{% block body %}
+    <div class="form-horizontal control-group">
+        <label class="control-label h-label" for="phone">Ваш номер телефона</label>
+
+        <div class="controls h-controls">
+            <div class="input-append">
+                <input class="custom-input" id="phone" type="text">
+                <span class="add-on"><i class="sp m-check"></i></span>
+            </div>
+        </div>
+    </div>
+    <p class="row-btn clearfix">
+        <button type="button" class="btn btn-success pull-right" data-dismiss="modal" data-toggle="modal" data-target="#modal_2">Success</button>
+    </p>
+
+{% endblock %}
