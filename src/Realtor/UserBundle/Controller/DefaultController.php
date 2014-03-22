@@ -11,13 +11,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * Class DefaultController
  * @package Realtor\UserBundle\Controller
+ *
+ * @Route("/employees")
  */
 class DefaultController extends Controller
 {
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/employees", name="employees_list")
+     * @Route("/", name="employees_list")
      * @Method("GET")
      */
     public function indexAction()

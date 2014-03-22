@@ -14,6 +14,10 @@ reason:
     resource: "@DictionaryBundle/Controller/ReasonController.php"
     type: annotation
 
+tmp_default:
+    resource: "@DictionaryBundle/Controller/DefaultController.php"
+    type: annotation
+
 employees:
     resource: "@UserBundle/Controller/DefaultController.php"
     type: annotation
