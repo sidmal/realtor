@@ -19,7 +19,7 @@ class DefaultController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/", name="login")
-     * @Method("GET", "POST")
+     * @Method({"GET", "POST"})
      */
     public function indexAction()
     {
