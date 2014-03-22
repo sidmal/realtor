@@ -1,8 +1,19 @@
-dictionary:
-    resource: "@DictionaryBundle/Resources/config/routing.yml"
-    prefix:   /
+call:
+    resource: "@CallBundle/Controller/DefaultController.php"
+    type: annotation
 
 branches:
     resource: "@DictionaryBundle/Controller/BranchesController.php"
     type: annotation
 
+advertising_source:
+    resource: "@DictionaryBundle/Controller/AdvertisingSourceController.php"
+    type: annotation
+
+reason:
+    resource: "@DictionaryBundle/Controller/ReasonController.php"
+    type: annotation
+
+employees:
+    resource: "@UserBundle/Controller/DefaultController.php"
+    type: annotation

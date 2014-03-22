@@ -1,0 +1,25 @@
+{% extends 'CallBundle:Default:call_0.html.twig' %}
+
+{% block add_to_employe_list %}
+    <button class="btn btn-success btn-lg pull-right" type="button" data-toggle="modal" data-target="#myModal">
+        <i class="glyphicon glyphicon-pencil"></i>
+        Занести в список сотрудников
+    </button>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Сотрудники</h4>
+                </div>
+                <div class="modal-body">
+                    Здесь будет поиск по сотрудникам с возможностью добавления или изменения телефона
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

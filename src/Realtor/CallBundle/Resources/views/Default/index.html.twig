@@ -1,0 +1,15 @@
+{% extends '::layout.html.twig' %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+    {% if call_type == 1 %} {# звонок от сотрудника #}
+        {% include 'CallBundle:Default:call_1.html.twig' %}
+    {% elseif call_type == 2 %} {# клиент не знает чего хочет #}
+        {% include 'CallBundle:Default:call_2.html.twig' %}
+    {% elseif call_type == 3 %} {# звонок от агентства #}
+        {% include 'CallBundle:Default:call_3.html.twig' %}
+    {% else %}
+        {% include 'CallBundle:Default:call_0.html.twig' %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'CallBundle:Default:call_0.html.twig' %}
+
+{% block advertising_source %}{% endblock %}
+
+{% block searched_object %}
+    <div class="form-group">
+        <label for="property">Филиал:</label>
+        <div class="input-group">
+            <input type="text" class="form-control input-sm" placeholder="Поиск филиала..." name="property" id="property" required />
+            <div class="input-group-btn">
+                <button class="btn btn-default input-sm" type="button">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+                <button class="btn btn-default input-sm" type="button">
+                    <i class="glyphicon glyphicon-home"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="span8" style="margin-top: 10px;">
+            <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.ru/maps?f=q&source=s_q&hl=en&geocode=&q=Россия, г. Санкт-Петербург, наб. реки Фонтанки 50&output=embed"></iframe>
+        </div>
+    </div>
+{% endblock %}

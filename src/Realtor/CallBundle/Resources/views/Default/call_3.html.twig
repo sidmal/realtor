@@ -1,0 +1,20 @@
+{% extends 'CallBundle:Default:call_0.html.twig' %}
+
+{% block advertising_source %}{% endblock %}
+
+{% block searched_object %}
+    <div class="form-group">
+        <label for="property">Сотрудник:</label>
+        <div class="input-group">
+            <input type="text" class="form-control input-sm" placeholder="Поиск сотрудника..." name="property" id="property" required />
+            <div class="input-group-btn">
+                <button class="btn btn-default input-sm" type="button">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+                <button class="btn btn-default input-sm" type="button">
+                    <i class="glyphicon glyphicon-user"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

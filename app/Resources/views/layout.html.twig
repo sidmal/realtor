@@ -1,7 +1,7 @@
 <!-- DOCTYPE html-->
 <html>
     <head>
-        <title>{% block title %}Code name Realtor{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <!-- Bootstrap -->
@@ -18,8 +18,16 @@
         <![endif]-->
     </head>
 
-    <body>
-        {% block body %}{% endblock %}
+    <body style="padding-top: 50px;">
+        {% block header %}
+            <div class="navbar navbar-default navbar-fixed-top">
+                <a class="navbar-brand" href="#">Brand</a>
+            </div>
+        {% endblock %}
+
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
 
         {% block javascripts %}
             {% javascripts '@jquery_js' '@bootstrap_js' 'js/*' filter='?yui_js' combine=true %}

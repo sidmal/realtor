@@ -1,1 +1,130 @@
-Hello {{ name }}!
+{% extends '::menu.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/dictionary/css/tables_with_filter.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/dictionary/js/dictionary.js') }}"></script>
+    <script src="{{ asset('bundles/dictionary/js/jquery.tablesorter/jquery.tablesorter.js') }}"></script>
+{% endblock %}
+
+{% block menu_content %}
+    <div class="container">
+        <div class="col-md-7" style="margin-left: -20px;">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Сотрудники</h3>
+                    <div class="pull-right">
+							<span class="clickable filter" data-toggle="tooltip" title="Дополнительные группировки" data-container="body">
+								<i class="glyphicon glyphicon-filter"></i>
+							</span>
+                    </div>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="row center-block">
+                        <div class="col-xs-4">
+                            <select class="form-control input-sm">
+                                <option>имя поля</option>
+                                <option>имя поля</option>
+                                <option>имя поля</option>
+                                <option>имя поля</option>
+                                <option>имя поля</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <select class="form-control input-sm">
+                                <option>функция группировки</option>
+                                <option>функция группировки</option>
+                                <option>функция группировки</option>
+                                <option>функция группировки</option>
+                                <option>функция группировки</option>
+                            </select>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <button type="button" class="btn btn-primary btn-sm">Применить</button>
+                        </div>
+
+                    </div>
+                </div>
+                <table class="table table-hover" id="dictionary-table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Kilgore</td>
+                        <td>Trout</td>
+                        <td>kilgore</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Bob</td>
+                        <td>Loblaw</td>
+                        <td>boblahblah</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Holden</td>
+                        <td>Caulfield</td>
+                        <td>penceyreject</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-4" style="margin-left: -5px;">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Поиск</h3>
+                </div>
+                <div style="padding-top:30px" class="panel-body">
+                    <div class="row" style="margin: 0 0 10px 0;">
+                        <button id="btn-add-search-term" type="button" class="btn btn-labeled btn-primary btn-xs pull-right">
+                            <span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>Добавить условие
+                        </button>
+                    </div>
+                    <div id="search-term-container">
+                        <div class="row span4" style="margin: 0 0 10px 0; border: 1px solid #888; padding: 15px 10px 15px 10px;">
+                            <div class="col-xs-5" style="margin-left: -5px;">
+                                <select class="form-control input-sm">
+                                    <option>имя поля</option>
+                                    <option>имя поля</option>
+                                    <option>имя поля</option>
+                                    <option>имя поля</option>
+                                    <option>имя поля</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-4" style="margin-left: -23px;">
+                                <select class="form-control input-sm">
+                                    <option>действие</option>
+                                    <option>действие</option>
+                                    <option>действие</option>
+                                    <option>действие</option>
+                                    <option>действие</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-5" style="margin-left: -23px;">
+                                <input type="text" class="form-control input-sm" value="" placeholder="что ищем?" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="border-top: 1px solid #888; margin: 25px 10px 10px 0; padding-top: 15px;">
+                        <button type="button" class="btn btn-info btn-block">Искать</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock menu_content %}

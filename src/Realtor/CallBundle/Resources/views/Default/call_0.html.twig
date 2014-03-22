@@ -1,0 +1,136 @@
+<div class="container">
+    <div style="margin-top: -25px;" class="col-md-12">
+        <div class="panel panel-info">
+
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <strong>
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        Карточка звонка
+                    </strong>
+                </div>
+            </div>
+
+            <form role="form" action="" method="post">
+                <div class="well well-sm" style="margin-top: 10px;">
+                    <strong>
+                        <i class="glyphicon glyphicon-phone-alt"></i>
+                        Номер телефона звонящего:
+                    </strong>
+                </div>
+
+                <div class="panel-body">
+
+                    <div style="margin-top: -15px; padding-bottom: 20px; border-bottom: 1px solid #888;" class="form-group col-md-12">
+                        <div class="col-sm-12 controls">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
+                                    Тип звонка
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ path('call_card') }}">Звонок от продавца</a></li>
+                                    <li><a href="{{ path('call_card', {'callType': 3}) }}">Звонок от агентства</a></li>
+                                    <li>
+                                        <a href="{{ path('call_card', {'callType': 1}) }}">
+                                            Звонок от сотрудника
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{ path('call_card') }}">Клиент знает объект</a></li>
+                                    <li><a href="{{ path('call_card', {'callType': 2}) }}">Клиент не знает чего хочет</a></li>
+                                </ul>
+                            </div>
+
+                            {% block add_to_employe_list %}{% endblock %}
+                        </div>
+                    </div>
+
+                    {% block call_card %}
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label for="caller-name">Имя звонящего:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control input-sm" name="caller-name" id="caller-name" placeholder="Имя звонящего" required />
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user form-control-feedback"></i></span>
+                                </div>
+                            </div>
+
+                            {% block advertising_source %}
+                                <div class="form-group">
+                                    <label for="advertising-source">Источник рекламы:</label>
+                                    <div class="input-group col-xs-12">
+                                        <select class="form-control input-sm" name="advertising-source" id="advertising-source" required>
+                                            <option>газета</option>
+                                            <option>журнал</option>
+                                            <option>радио</option>
+                                            <option>телевизор</option>
+                                            <option>интернет</option>
+                                            <option>знакомые</option>
+                                            <option>другое</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            {% endblock %}
+
+                            {% block searched_object %}
+                                <div class="form-group">
+                                    <label for="property">Обект недвижимости:</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control input-sm" placeholder="Поиск объекта недвижимости..." name="property" id="property" required />
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-default input-sm" type="button">
+                                                <i class="glyphicon glyphicon-search"></i>
+                                            </button>
+                                            <button class="btn btn-default input-sm" type="button">
+                                                <i class="glyphicon glyphicon-eye-open"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endblock %}
+
+                            <div class="form-group">
+                                <label for="reason">Причина обращения:</label>
+                                <div class="input-group col-xs-12">
+                                    <select class="form-control input-sm" name="reason" id="reason" required>
+                                        <option>покупка квартиры</option>
+                                        <option>продажа загородного дома</option>
+                                        <option>продажа комнаты</option>
+                                        <option>просто скучно и поговорить не с кем</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="agent-message">Сообщение:</label>
+                                <div class="input-group">
+                                    <textarea name="agent-message" id="agent-message" class="form-control" rows="11" required></textarea>
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-comment form-control-feedback"></i>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #888;" class="form-group col-md-12">
+                            <div class="col-sm-12 controls">
+                                <button class="btn btn-info btn-lg pull-left" type="submit">
+                                    <i class="glyphicon glyphicon-hand-right"></i>
+                                    Перевод звонка
+                                </button>
+                            </div>
+                        </div>
+                    {% endblock %}
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

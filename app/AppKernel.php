@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Realtor\DictionaryBundle\DictionaryBundle(),
             new Realtor\UserBundle\UserBundle(),
+            new Realtor\CallBundle\CallBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
