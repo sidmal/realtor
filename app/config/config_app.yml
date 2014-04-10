@@ -1,0 +1,7 @@
+services:
+    advertising_source.manager:
+        class: Realtor\DictionaryBundle\Manager\AdvertisingSourceManager
+        arguments: ["@doctrine.orm.entity_manager"]
+    branches.manager:
+        class: Realtor\DictionaryBundle\Manager\BranchesManager
+        arguments: ["@doctrine.orm.entity_manager"]

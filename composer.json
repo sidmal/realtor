@@ -21,7 +21,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "leafo/lessphp": "*",
         "twitter/bootstrap": "*",
-        "oyejorge/less.php": "~1.5"
+        "oyejorge/less.php": "~1.5",
+        "guzzle/guzzle": "@stable"
     },
     "scripts": {
         "post-install-cmd": [

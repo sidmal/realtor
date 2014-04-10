@@ -46,7 +46,7 @@ class BranchPhones
     /**
      * @var boolean
      *
-     * @ORM\Column(name="is_active", type="boolean")
+     * @ORM\Column(name="is_active", type="boolean", options={"default"=true})
      */
     private $isActive;
 
@@ -64,6 +64,10 @@ class BranchPhones
      */
     private $updatedAt;
 
+    public function __construct()
+    {
+        $this->isActive = true;
+    }
 
     /**
      * Get id
@@ -78,7 +82,7 @@ class BranchPhones
     /**
      * Set brancheId
      *
-     * @param integer $branchId
+     * @param \Realtor\DictionaryBundle\Entity\Branches $branchId
      * @return BranchPhones
      */
     public function setBrancheId($branchId)

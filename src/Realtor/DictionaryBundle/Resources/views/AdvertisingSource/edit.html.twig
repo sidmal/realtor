@@ -1,0 +1,49 @@
+{% extends '::menu.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/dictionary/css/tables_with_filter.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block menu_content %}
+    <div class="container">
+        <div class="col-md-8">
+            <div class="panel panel-info">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">Редактирование источника рекламы</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div style="width: 550px; margin-left: 160px;">
+                        <form method="post" action="{{ path('advertising_source_update', { 'id': entity.id }) }}">
+                            <div class="form-group">
+                                <label for="caller-name">Наименование:</label>
+                                <div class="input-group col-xs-8">
+                                    <input type="text" class="form-control" name="realtor_dictionarybundle_advertisingsource[name]" id="ad-name" value="{{ entity.name }}" autocomplete="off" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="realtor_dictionarybundle_advertisingsource[isActive]" id="ad-is-active" {{ entity.isActive == 1 ? "checked" : "" }} />Источник рекламы активен
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:10px" class="form-group">
+                                <div class="col-xs-8 controls">
+                                    <input class="btn btn-info btn-block" type="submit" value="Сохранить" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        {% include '::back_to_list.html.twig' with {'list_path': 'advertising_source'} only %}
+    </div>
+{% endblock %}

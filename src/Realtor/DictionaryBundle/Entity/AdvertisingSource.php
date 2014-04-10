@@ -31,7 +31,7 @@ class AdvertisingSource
     /**
      * @var integer
      *
-     * @ORM\Column(name="outer_id", type="integer")
+     * @ORM\Column(name="outer_id", type="integer", nullable=true)
      */
     private $outerId;
 
@@ -55,7 +55,6 @@ class AdvertisingSource
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
-
 
     /**
      * Get id

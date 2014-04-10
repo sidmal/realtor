@@ -31,7 +31,7 @@ class Branches
     /**
      * @var integer
      *
-     * @ORM\Column(name="outer_id", type="integer")
+     * @ORM\Column(name="outer_id", type="integer", nullable=true)
      */
     private $outerId;
 
@@ -52,7 +52,7 @@ class Branches
     /**
      * @var boolean
      *
-     * @ORM\Column(name="is_active", type="boolean")
+     * @ORM\Column(name="is_active", type="boolean", options={"default"=true})
      */
     private $isActive;
 
@@ -63,6 +63,10 @@ class Branches
      */
     private $createdAt;
 
+    public function __construct()
+    {
+        $this->isActive = true;
+    }
 
     /**
      * Get id
