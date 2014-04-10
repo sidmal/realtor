@@ -54,7 +54,7 @@ class BranchesManager
 
         foreach($branches as $branch){
             $branchEntity = $this->entityManager->getRepository('DictionaryBundle:Branches')
-                ->findOneBy(['outerId' => $branch['id_office']]);
+                ->findOneBy(array('outerId' => $branch['id_office']));
 
             if(!$branchEntity){
                 $branchEntity = new Branches();
@@ -73,7 +73,7 @@ class BranchesManager
             $this->entityManager->persist($branchEntity);
 
             $branchPhone = $this->entityManager->getRepository('DictionaryBundle:BranchPhones')
-                ->findBy(['branchId' => $branchEntity->getId()]);
+                ->findBy(array('branchId' => $branchEntity->getId()));
 
             if($branchPhone){
                 foreach($branchPhone as $item){

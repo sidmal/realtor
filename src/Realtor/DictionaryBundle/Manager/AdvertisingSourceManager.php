@@ -54,7 +54,7 @@ class AdvertisingSourceManager
 
         foreach($advertisingSource as $item){
             $advertisingSourceItem = $this->entityManager->getRepository('DictionaryBundle:AdvertisingSource')
-                ->findOneBy(['outerId' => $item['id']]);
+                ->findOneBy(array('outerId' => $item['id']));
 
             if(!$advertisingSourceItem){
                 $advertisingSourceItem = new AdvertisingSource();
