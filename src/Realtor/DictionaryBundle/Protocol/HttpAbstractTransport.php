@@ -36,7 +36,7 @@ class HttpAbstractTransport
     {
         $httpClient = new Client();
 
-        if(!empty($this->getOptions())){
+        if($this->getOptions()){
             $httpClient->setConfig($this->getOptions());
         }
 
