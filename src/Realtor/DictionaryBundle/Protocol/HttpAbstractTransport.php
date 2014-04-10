@@ -24,7 +24,7 @@ class HttpAbstractTransport
 
     public function __construct()
     {
-        $this->options = [];
+        $this->options = array();
 
         $this->logger = null;
     }
