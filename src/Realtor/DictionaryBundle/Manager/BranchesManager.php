@@ -24,7 +24,8 @@ class BranchesManager
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->httpClient = (new HttpAbstractTransport())->getClient();
+        $httpClient = new HttpAbstractTransport();
+        $this->httpClient = $httpClient->getClient();
     }
 
     public function getBranches()
