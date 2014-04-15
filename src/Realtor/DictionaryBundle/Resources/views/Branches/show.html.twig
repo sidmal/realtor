@@ -30,8 +30,24 @@
                     </tr>
                     <tr class="active">
                         <th>Адрес</th>
-                        <td>{{ entity.address }}</td>
+                        <td>{{ entity.address ? entity.address : "Не задан" }}</td>
                     </tr>
+
+
+                    <tr class="active">
+                        <th>Городской телефон</th>
+                        <td>{{ entity.cityPhone ? entity.cityPhone : "Не задан" }}</td>
+                    </tr>
+                    <tr class="active">
+                        <th>Номер дежурного</th>
+                        <td>{{ entity.onDutyAgentPhone ? entity.onDutyAgentPhone : "Не задан" }}</td>
+                    </tr>
+                    <tr class="active">
+                        <th>Внутренний номер филиала</th>
+                        <td>{{ entity.branchNumber ? entity.branchNumber : "Не задан" }}</td>
+                    </tr>
+
+
                     <tr class="active">
                         <th>Активен</th>
                         <td>{{ entity.isActive ? "Да" : "Нет" }}</td>

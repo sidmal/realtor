@@ -38,6 +38,13 @@ class Branches
     /**
      * @var string
      *
+     * @ORM\Column(name="branch_number", type="string", length=128, nullable=true)
+     */
+    private $branchNumber;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
@@ -45,9 +52,23 @@ class Branches
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="text")
+     * @ORM\Column(name="address", type="text", nullable=true)
      */
     private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city_phone", type="string", length=128, nullable=true)
+     */
+    private $cityPhone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="on_duty_agent_phone", type="string", length=128, nullable=true)
+     */
+    private $onDutyAgentPhone;
 
     /**
      * @var boolean
@@ -186,5 +207,87 @@ class Branches
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Set branchNumber
+     *
+     * @param integer $branchNumber
+     * @return Branches
+     */
+    public function setBranchNumber($branchNumber)
+    {
+        $this->branchNumber = $branchNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get branchNumber
+     *
+     * @return integer 
+     */
+    public function getBranchNumber()
+    {
+        return $this->branchNumber;
+    }
+
+    /**
+     * Set cityPhone
+     *
+     * @param string $cityPhone
+     * @return Branches
+     */
+    public function setCityPhone($cityPhone)
+    {
+        $this->cityPhone = $cityPhone;
+
+        return $this;
+    }
+
+    /**
+     * Get cityPhone
+     *
+     * @return string 
+     */
+    public function getCityPhone()
+    {
+        return $this->cityPhone;
+    }
+
+    /**
+     * Set onDutyAgentPhone
+     *
+     * @param string $onDutyAgentPhone
+     * @return Branches
+     */
+    public function setOnDutyAgentPhone($onDutyAgentPhone)
+    {
+        $this->onDutyAgentPhone = $onDutyAgentPhone;
+
+        return $this;
+    }
+
+    /**
+     * Get onDutyAgentPhone
+     *
+     * @return string 
+     */
+    public function getOnDutyAgentPhone()
+    {
+        return $this->onDutyAgentPhone;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Branches
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 }

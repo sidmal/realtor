@@ -5,3 +5,6 @@ services:
     branches.manager:
         class: Realtor\DictionaryBundle\Manager\BranchesManager
         arguments: ["@doctrine.orm.entity_manager"]
+    users.manager:
+        class: Realtor\UserBundle\Manager\UsersManager
+        arguments: ["@doctrine.orm.entity_manager"]

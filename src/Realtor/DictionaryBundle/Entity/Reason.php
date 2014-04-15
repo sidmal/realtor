@@ -31,7 +31,7 @@ class Reason
     /**
      * @var integer
      *
-     * @ORM\Column(name="outer_id", type="integer")
+     * @ORM\Column(name="outer_id", type="integer", nullable=true)
      */
     private $outerId;
 

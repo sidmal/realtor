@@ -1,0 +1,104 @@
+{% extends '::menu.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/dictionary/css/tables_with_filter.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block menu_content %}
+    <div class="container">
+        <div class="col-md-8">
+            <div class="panel panel-info">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">Сотрудник - {{ entity.fullName }}</h3>
+                </div>
+
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr class="active">
+                        <th>Идентификатор</th>
+                        <td>{{ entity.id }}</td>
+                    </tr>
+                    <tr class="active">
+                        <th>Идентификатор emls</th>
+                        <td>{{ entity.outerId ? entity.outerId : "Не задан" }}</td>
+                    </tr>
+                    <tr class="active">
+                        <th>Имя</th>
+                        <td>{{ entity.firstName }}</td>
+                    </tr>
+                    <tr class="active">
+                        <th>Отчество</th>
+                        <td>{{ entity.secondName }}</td>
+                    </tr>
+                    <tr class="active">
+                        <th>Фамилия</th>
+                        <td>{{ entity.lastName }}</td>
+                    </tr>
+                    <tr class="active">
+                        <th>Email</th>
+                        <td>{{ entity.email }}</td>
+                    </tr>
+                    <tr class="active">
+                        <th>Приписан к офису</th>
+                        <td>
+                            <a href="{{ path('branches_show', { 'id': entity.branch.id }) }}">{{ entity.branch.name }}</a>
+                        </td>
+                    </tr>
+                    <tr class="active">
+                        <th>Выше стоящий сотрудник</th>
+                        <td>
+                            {% if entity.manager > 0 %}
+                                <a href="{{ path('users_show', { 'id': manager.id }) }}">{{ manager.fullName }}</a>
+                            {% else %}
+                                Не задан
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr class="active">
+                        <th>В штате</th>
+                        <td>
+                            {% if entity.dismiss == 1 %}
+                                <span class="label label-danger">уволен - дата увольнения: {{ entity.dismissDate is empty ? "Не установлена" : entity.dismissDate|date('d.m.Y H:i:s') }}</span>
+                            {% else %}
+                                <span class="label label-success">в штате</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% if entity.idOfficeIn is not null %}
+                        <tr class="active">
+                            <th>Сейчас находится в офисе</th>
+                            <td>
+                                <a href="{{ path('branches_show', { 'id': entity.idOfficeIn.id }) }}">{{ entity.idOfficeIn.name }}</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                    <tr class="active">
+                        <th>Сотрудник находится на рабочем месте</th>
+                        <td>
+                            {% if entity.inOffice == 0 %}
+                                <span class="label label-danger">Нет</span>
+                            {% else %}
+                                <span class="label label-success">Да</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    <tr class="active">
+                        <th>Номер офисного телефона</th>
+                        <td>
+                            {{ entity.officePhone is empty ? "Не задан" : entity.officePhone }}
+                        </td>
+                    </tr>
+
+                    </tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {% include '::back_to_list.html.twig' with {'list_path': 'users'} only %}
+    </div>
+{% endblock %}

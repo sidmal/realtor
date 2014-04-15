@@ -1,27 +1,27 @@
 <?php
 
-namespace Realtor\DictionaryBundle\Controller;
+namespace Realtor\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Realtor\DictionaryBundle\Entity\Reason;
-use Realtor\DictionaryBundle\Form\ReasonType;
+use Realtor\UserBundle\Entity\Users;
+use Realtor\UserBundle\Form\UsersType;
 
 /**
- * Reason controller.
+ * Users controller.
  *
- * @Route("/reason")
+ * @Route("/users")
  */
-class ReasonController extends Controller
+class UsersController extends Controller
 {
 
     /**
-     * Lists all Reason entities.
+     * Lists all Users entities.
      *
-     * @Route("/", name="reason")
+     * @Route("/", name="users")
      * @Method("GET")
      * @Template()
      */
@@ -29,22 +29,22 @@ class ReasonController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('DictionaryBundle:Reason')->findAll();
+        $entities = $em->getRepository('UserBundle:Users')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new Reason entity.
+     * Creates a new Users entity.
      *
-     * @Route("/", name="reason_create")
+     * @Route("/", name="users_create")
      * @Method("POST")
-     * @Template("DictionaryBundle:Reason:new.html.twig")
+     * @Template("UserBundle:Users:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new Reason();
+        $entity = new Users();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -53,7 +53,7 @@ class ReasonController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('reason_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('users_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -63,16 +63,16 @@ class ReasonController extends Controller
     }
 
     /**
-    * Creates a form to create a Reason entity.
+    * Creates a form to create a Users entity.
     *
-    * @param Reason $entity The entity
+    * @param Users $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Reason $entity)
+    private function createCreateForm(Users $entity)
     {
-        $form = $this->createForm(new ReasonType(), $entity, array(
-            'action' => $this->generateUrl('reason_create'),
+        $form = $this->createForm(new UsersType(), $entity, array(
+            'action' => $this->generateUrl('users_create'),
             'method' => 'POST',
         ));
 
@@ -82,15 +82,15 @@ class ReasonController extends Controller
     }
 
     /**
-     * Displays a form to create a new Reason entity.
+     * Displays a form to create a new Users entity.
      *
-     * @Route("/new", name="reason_new")
+     * @Route("/new", name="users_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $entity = new Reason();
+        $entity = new Users();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -100,9 +100,9 @@ class ReasonController extends Controller
     }
 
     /**
-     * Finds and displays a Reason entity.
+     * Finds and displays a Users entity.
      *
-     * @Route("/{id}", name="reason_show")
+     * @Route("/{id}", name="users_show")
      * @Method("GET")
      * @Template()
      */
@@ -110,24 +110,32 @@ class ReasonController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('DictionaryBundle:Reason')->find($id);
+        $entity = $em->getRepository('UserBundle:Users')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Reason entity.');
+            throw $this->createNotFoundException('Unable to find Users entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
+        if($entity->getManager() > 0){
+            $manager = $em->getRepository('UserBundle:Users')->findOneBy(['outerId' => $entity->getManager()]);
+        }
+        else{
+            $manager = null;
+        }
+
         return array(
-            'entity'      => $entity,
+            'entity'  => $entity,
+            'manager' => $manager,
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-     * Displays a form to edit an existing Reason entity.
+     * Displays a form to edit an existing Users entity.
      *
-     * @Route("/{id}/edit", name="reason_edit")
+     * @Route("/{id}/edit", name="users_edit")
      * @Method("GET")
      * @Template()
      */
@@ -135,10 +143,10 @@ class ReasonController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('DictionaryBundle:Reason')->find($id);
+        $entity = $em->getRepository('UserBundle:Users')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Reason entity.');
+            throw $this->createNotFoundException('Unable to find Users entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -152,33 +160,38 @@ class ReasonController extends Controller
     }
 
     /**
-    * Creates a form to edit a Reason entity.
+    * Creates a form to edit a Users entity.
     *
-    * @param Reason $entity The entity
+    * @param Users $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Reason $entity)
+    private function createEditForm(Users $entity)
     {
-        $form = $this->createForm(new ReasonType(), $entity);
+        $form = $this->createForm(new UsersType(), $entity, array(
+            'action' => $this->generateUrl('users_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
     /**
-     * Edits an existing Reason entity.
+     * Edits an existing Users entity.
      *
-     * @Route("/{id}", name="reason_update")
-     * @Method("POST")
-     * @Template("DictionaryBundle:Reason:edit.html.twig")
+     * @Route("/{id}", name="users_update")
+     * @Method("PUT")
+     * @Template("UserBundle:Users:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('DictionaryBundle:Reason')->find($id);
+        $entity = $em->getRepository('UserBundle:Users')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Reason entity.');
+            throw $this->createNotFoundException('Unable to find Users entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -188,7 +201,7 @@ class ReasonController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('reason_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('users_edit', array('id' => $id)));
         }
 
         return array(
@@ -198,28 +211,33 @@ class ReasonController extends Controller
         );
     }
     /**
-     * Deletes a Reason entity.
+     * Deletes a Users entity.
      *
-     * @Route("/delete/{id}", name="reason_delete")
-     * @Method("GET")
+     * @Route("/{id}", name="users_delete")
+     * @Method("DELETE")
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('DictionaryBundle:Reason')->find($id);
+        $form = $this->createDeleteForm($id);
+        $form->handleRequest($request);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Reason entity.');
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('UserBundle:Users')->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Users entity.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
         }
 
-        $em->remove($entity);
-        $em->flush();
-
-        return $this->redirect($this->generateUrl('reason'));
+        return $this->redirect($this->generateUrl('users'));
     }
 
     /**
-     * Creates a form to delete a Reason entity by id.
+     * Creates a form to delete a Users entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -228,7 +246,7 @@ class ReasonController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('reason_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('users_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

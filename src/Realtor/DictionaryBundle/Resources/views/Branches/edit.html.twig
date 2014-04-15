@@ -20,14 +20,35 @@
                             <div class="form-group">
                                 <label for="caller-name">Наименование:</label>
                                 <div class="input-group col-xs-8">
-                                    <input type="text" class="form-control" name="realtor_dictionarybundle_branches[name]" id="ad-name" value="{{ entity.name }}" autocomplete="off" required />
+                                    <input type="text" class="form-control" name="realtor_dictionarybundle_branches[name]" id="name" value="{{ entity.name }}" autocomplete="off" required />
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="caller-name">Адрес:</label>
                                 <div class="input-group col-xs-8">
-                                    <input type="text" class="form-control" name="realtor_dictionarybundle_branches[address]" id="ad-name" value="{{ entity.address }}" autocomplete="off" required />
+                                    <input type="text" class="form-control" name="realtor_dictionarybundle_branches[address]" id="address" value="{{ entity.address }}" autocomplete="off" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="caller-name">Городской телефон:</label>
+                                <div class="input-group col-xs-8">
+                                    <input type="text" class="form-control" name="realtor_dictionarybundle_branches[cityPhone]" id="cityPhone" value="{{ entity.cityPhone }}" autocomplete="off" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="caller-name">Номер дежурного:</label>
+                                <div class="input-group col-xs-8">
+                                    <input type="text" class="form-control" name="realtor_dictionarybundle_branches[onDutyAgentPhone]" id="onDutyAgentPhone" value="{{ entity.onDutyAgentPhone }}" autocomplete="off" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="caller-name">Внутренний номер филиала:</label>
+                                <div class="input-group col-xs-8">
+                                    <input type="text" class="form-control" name="realtor_dictionarybundle_branches[branchNumber]" id="branchNumber" value="{{ entity.branchNumber }}" autocomplete="off" />
                                 </div>
                             </div>
 

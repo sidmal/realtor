@@ -1,0 +1,62 @@
+{% extends '::menu.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/dictionary/css/tables_with_filter.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/dictionary/js/dictionary.js') }}"></script>
+    <script src="{{ asset('bundles/dictionary/js/jquery.tablesorter/jquery.tablesorter.js') }}"></script>
+{% endblock %}
+
+{% block menu_content %}
+    <div class="container">
+        <div class="col-md-7" style="margin-left: -20px;">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Сотрудники</h3>
+                </div>
+
+                <table class="table table-hover" id="dictionary-table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ФИО</th>
+                        <th>Филиал</th>
+                        <th>Действие</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('users_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                            </td>
+                            <td>
+                                {{ entity.fullName }}
+                            </td>
+                            <td>
+                                {{ entity.branch.name }}
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        Действие <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="{{ path('branches_show', { 'id': entity.id }) }}">Показать</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {% include '::dictionary_search.html.twig' %}
+    </div>
+{% endblock %}

@@ -1,10 +1,10 @@
 <?php
 
-namespace Realtor\DictionaryBundle\Tests\Controller;
+namespace Realtor\UserBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ReasonControllerTest extends WebTestCase
+class UsersControllerTest extends WebTestCase
 {
     /*
     public function testCompleteScenario()
@@ -13,13 +13,13 @@ class ReasonControllerTest extends WebTestCase
         $client = static::createClient();
 
         // Create a new entry in the database
-        $crawler = $client->request('GET', '/reason/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /reason/");
+        $crawler = $client->request('GET', '/users/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /users/");
         $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
-            'realtor_dictionarybundle_reasontype[field_name]'  => 'Test',
+            'realtor_userbundle_userstype[field_name]'  => 'Test',
             // ... other fields to fill
         ));
 
@@ -33,7 +33,7 @@ class ReasonControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
         $form = $crawler->selectButton('Edit')->form(array(
-            'realtor_dictionarybundle_reasontype[field_name]'  => 'Foo',
+            'realtor_userbundle_userstype[field_name]'  => 'Foo',
             // ... other fields to fill
         ));
 

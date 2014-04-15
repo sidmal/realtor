@@ -19,5 +19,5 @@ tmp_default:
     type: annotation
 
 employees:
-    resource: "@UserBundle/Controller/DefaultController.php"
+    resource: "@UserBundle/Controller/UsersController.php"
     type: annotation

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class BranchesType extends AbstractType
+class ReasonType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -16,10 +16,6 @@ class BranchesType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('address')
-            ->add('cityPhone')
-            ->add('onDutyAgentPhone')
-            ->add('branchNumber')
             ->add('isActive')
         ;
     }
@@ -30,8 +26,8 @@ class BranchesType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Realtor\DictionaryBundle\Entity\Branches',
-            'csrf_protection' => false,
+            'data_class' => 'Realtor\DictionaryBundle\Entity\Reason',
+            'csrf_protection' => false
         ));
     }
 
@@ -40,6 +36,6 @@ class BranchesType extends AbstractType
      */
     public function getName()
     {
-        return 'realtor_dictionarybundle_branches';
+        return 'realtor_dictionarybundle_reason';
     }
 }

@@ -32,7 +32,7 @@ class Users
      * @var integer
      *
      * @ORM\Column(
-     *      name="crm_id",
+     *      name="outer_id",
      *      type="integer",
      *      nullable=true,
      *      unique=true,
@@ -41,26 +41,26 @@ class Users
      *      }
      * )
      */
-    private $crmId;
+    private $outerId;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="login", type="string", length=255, unique=true)
+     * @ORM\Column(name="login", type="string", length=255)
      */
     private $login;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(name="password", type="string", length=255, nullable=true)
      */
     private $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     private $email;
 
@@ -81,18 +81,18 @@ class Users
     private $lastLogin;
 
     /**
-     * @var boolean
+     * @var integer
      *
      * @ORM\Column(
      *      name="is_active",
-     *      type="boolean",
+     *      type="smallint",
      *      options={
-     *          "default"=true,
+     *          "default"=1,
      *          "comment"="флаг указывающий на то, что пользователь активен в системе"
      *      }
      * )
      */
-    private $isActive;
+    private $isActive = 1;
 
     /**
      * @var string
@@ -123,18 +123,136 @@ class Users
     private $expiredAt;
 
     /**
-     * @var boolean
+     * @var integer
      *
      * @ORM\Column(
      *      name="is_auth_only_app",
-     *      type="boolean",
+     *      type="smallint",
      *      options={
-     *          "default"=false,
+     *          "default"=0,
      *          "comment"="пользователь авторизуется только на стороне приложения, без запроса во внешнюю систему"
      *      }
      * )
      */
-    private $isAuthOnlyApp;
+    private $isAuthOnlyApp = 0;
+
+    /**
+     * к какому офису приписан сотрудник
+     *
+     * @var \Realtor\DictionaryBundle\Entity\Branches
+     *
+     * @ORM\ManyToOne(targetEntity="Realtor\DictionaryBundle\Entity\Branches")
+     * @ORM\JoinColumn(name="branch_id", referencedColumnName="id")
+     */
+    private $branch;
+
+    /**
+     * id вышестоящего сотрудника
+     *
+     * @var integer
+     *
+     * @ORM\Column(name="manager", type="integer", options={"default"=0})
+     */
+    private $manager = 0;
+
+    /**
+     * флаг уволенности
+     *
+     * @var integer
+     *
+     * @ORM\Column(name="dismiss", type="smallint", options={"default"=0})
+     */
+    private $dismiss = 0;
+
+    /**
+     * дата увольнения
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dismissDate", type="datetime", nullable=true)
+     */
+    private $dismissDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="full_name", type="string", length=255, nullable=true)
+     */
+    private $fullName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="first_name", type="string", length=85, nullable=true)
+     */
+    private $firstName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="second_name", type="string", length=85, nullable=true)
+     */
+    private $secondName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="last_name", type="string", length=85, nullable=true)
+     */
+    private $lastName;
+
+    /**
+     * если он находится в офисе, то в каком
+     *
+     * @var \Realtor\DictionaryBundle\Entity\Branches
+     *
+     * @ORM\ManyToOne(targetEntity="Realtor\DictionaryBundle\Entity\Branches")
+     * @ORM\JoinColumn(name="id_office_in", referencedColumnName="id", nullable=true)
+     */
+    private $idOfficeIn;
+
+    /**
+     * флаг того что он находится в офисе
+     *
+     * @var integer
+     *
+     * @ORM\Column(name="in_office", type="smallint", options={"default"=0})
+     */
+    private $inOffice = 0;
+
+    /**
+     * номер телефона внутренний, является полем на которое (которые) транслируется звонок
+     *
+     * @var string
+     *
+     * @ORM\Column(name="office_phone", type="string", length=128, nullable=true)
+     */
+    private $officePhone;
+
+    /**
+     * то что мы говорили про второй телефон (на мобильном и т.п.)
+     *
+     * @var string
+     *
+     * @ORM\Column(name="offices_ip_phone", type="string", length=128, nullable=true)
+     */
+    private $officesIpPhone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=128, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * флаг разрешённости перевода звонка на мобильник
+     *
+     * @var integer
+     *
+     * @ORM\Column(name="may_trans", type="smallint", options={"default"=0})
+     */
+    private $mayTrans;
 
     /**
      * @var \DateTime
@@ -161,26 +279,26 @@ class Users
     }
 
     /**
-     * Set crmId
+     * Set outerId
      *
-     * @param integer $crmId
+     * @param integer $outerId
      * @return Users
      */
-    public function setCrmId($crmId)
+    public function setOuterId($outerId)
     {
-        $this->crmId = $crmId;
+        $this->outerId = $outerId;
 
         return $this;
     }
 
     /**
-     * Get crmId
+     * Get outerId
      *
      * @return integer 
      */
-    public function getCrmId()
+    public function getOuterId()
     {
-        return $this->crmId;
+        return $this->outerId;
     }
 
     /**
@@ -278,7 +396,7 @@ class Users
     /**
      * Set isActive
      *
-     * @param boolean $isActive
+     * @param integer $isActive
      * @return Users
      */
     public function setIsActive($isActive)
@@ -291,7 +409,7 @@ class Users
     /**
      * Get isActive
      *
-     * @return boolean 
+     * @return integer
      */
     public function getIsActive()
     {
@@ -347,7 +465,7 @@ class Users
     /**
      * Set isAuthOnlyApp
      *
-     * @param boolean $isAuthOnlyApp
+     * @param integer $isAuthOnlyApp
      * @return Users
      */
     public function setIsAuthOnlyApp($isAuthOnlyApp)
@@ -360,11 +478,356 @@ class Users
     /**
      * Get isAuthOnlyApp
      *
-     * @return boolean 
+     * @return integer
      */
     public function getIsAuthOnlyApp()
     {
         return $this->isAuthOnlyApp;
+    }
+
+    /**
+     * Set dismiss
+     *
+     * @param integer $dismiss
+     * @return Users
+     */
+    public function setDismiss($dismiss)
+    {
+        $this->dismiss = $dismiss;
+
+        return $this;
+    }
+
+    /**
+     * Get dismiss
+     *
+     * @return integer
+     */
+    public function getDismiss()
+    {
+        return $this->dismiss;
+    }
+
+    /**
+     * Set dismissDate
+     *
+     * @param \DateTime $dismissDate
+     * @return Users
+     */
+    public function setDismissDate($dismissDate)
+    {
+        $this->dismissDate = $dismissDate;
+
+        return $this;
+    }
+
+    /**
+     * Get dismissDate
+     *
+     * @return \DateTime 
+     */
+    public function getDismissDate()
+    {
+        return $this->dismissDate;
+    }
+
+    /**
+     * Set fullName
+     *
+     * @param string $fullName
+     * @return Users
+     */
+    public function setFullName($fullName)
+    {
+        $this->fullName = $fullName;
+
+        return $this;
+    }
+
+    /**
+     * Get fullName
+     *
+     * @return string 
+     */
+    public function getFullName()
+    {
+        return $this->fullName;
+    }
+
+    /**
+     * Set firstName
+     *
+     * @param string $firstName
+     * @return Users
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string 
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Set secondName
+     *
+     * @param string $secondName
+     * @return Users
+     */
+    public function setSecondName($secondName)
+    {
+        $this->secondName = $secondName;
+
+        return $this;
+    }
+
+    /**
+     * Get secondName
+     *
+     * @return string 
+     */
+    public function getSecondName()
+    {
+        return $this->secondName;
+    }
+
+    /**
+     * Set lastName
+     *
+     * @param string $lastName
+     * @return Users
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string 
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * Set inOffice
+     *
+     * @param integer $inOffice
+     * @return Users
+     */
+    public function setInOffice($inOffice)
+    {
+        $this->inOffice = $inOffice;
+
+        return $this;
+    }
+
+    /**
+     * Get inOffice
+     *
+     * @return integer
+     */
+    public function getInOffice()
+    {
+        return $this->inOffice;
+    }
+
+    /**
+     * Set officePhone
+     *
+     * @param string $officePhone
+     * @return Users
+     */
+    public function setOfficePhone($officePhone)
+    {
+        $this->officePhone = $officePhone;
+
+        return $this;
+    }
+
+    /**
+     * Get officePhone
+     *
+     * @return string 
+     */
+    public function getOfficePhone()
+    {
+        return $this->officePhone;
+    }
+
+    /**
+     * Set officesIpPhone
+     *
+     * @param string $officesIpPhone
+     * @return Users
+     */
+    public function setOfficesIpPhone($officesIpPhone)
+    {
+        $this->officesIpPhone = $officesIpPhone;
+
+        return $this;
+    }
+
+    /**
+     * Get officesIpPhone
+     *
+     * @return string 
+     */
+    public function getOfficesIpPhone()
+    {
+        return $this->officesIpPhone;
+    }
+
+    /**
+     * Set mayTrans
+     *
+     * @param integer $mayTrans
+     * @return Users
+     */
+    public function setMayTrans($mayTrans)
+    {
+        $this->mayTrans = $mayTrans;
+
+        return $this;
+    }
+
+    /**
+     * Get mayTrans
+     *
+     * @return integer
+     */
+    public function getMayTrans()
+    {
+        return $this->mayTrans;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Users
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Users
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set branch
+     *
+     * @param \Realtor\DictionaryBundle\Entity\Branches $branch
+     * @return Users
+     */
+    public function setBranch(\Realtor\DictionaryBundle\Entity\Branches $branch = null)
+    {
+        $this->branch = $branch;
+
+        return $this;
+    }
+
+    /**
+     * Get branch
+     *
+     * @return \Realtor\DictionaryBundle\Entity\Branches 
+     */
+    public function getBranch()
+    {
+        return $this->branch;
+    }
+
+    /**
+     * Set manager
+     *
+     * @param integer $manager
+     * @return Users
+     */
+    public function setManager($manager)
+    {
+        $this->manager = $manager;
+
+        return $this;
+    }
+
+    /**
+     * Get manager
+     *
+     * @return integer
+     */
+    public function getManager()
+    {
+        return $this->manager;
+    }
+
+    /**
+     * Set idOfficeIn
+     *
+     * @param \Realtor\DictionaryBundle\Entity\Branches $idOfficeIn
+     * @return Users
+     */
+    public function setIdOfficeIn(\Realtor\DictionaryBundle\Entity\Branches $idOfficeIn = null)
+    {
+        $this->idOfficeIn = $idOfficeIn;
+
+        return $this;
+    }
+
+    /**
+     * Get idOfficeIn
+     *
+     * @return \Realtor\DictionaryBundle\Entity\Branches 
+     */
+    public function getIdOfficeIn()
+    {
+        return $this->idOfficeIn;
     }
 
     /**
@@ -384,18 +847,25 @@ class Users
     }
 
     /**
-     * @return \DateTime
+     * Set phone
+     *
+     * @param string $phone
+     * @return Users
      */
-    public function getCreatedAt()
+    public function setPhone($phone)
     {
-        return $this->createdAt;
+        $this->phone = $phone;
+
+        return $this;
     }
 
     /**
-     * @return \DateTime
+     * Get phone
+     *
+     * @return string 
      */
-    public function getUpdatedAt()
+    public function getPhone()
     {
-        return $this->updatedAt;
+        return $this->phone;
     }
 }

@@ -62,39 +62,23 @@ class BranchesManager
                 $branchEntity
                     ->setOuterId($branch['id_office'])
                     ->setName($branch['office_name'])
-                    ->setAddress($branch['office_address']);
+                    ->setAddress($branch['office_address'])
+                    ->setBranchNumber($branch['ext_phone'])
+                    ->setCityPhone($branch['office_phone'])
+                    ->setOnDutyAgentPhone($branch['duty_agent'])
+                    ->setIsActive($branch['maytrans']);
             }
             else{
                 $branchEntity
                     ->setName($branch['office_name'])
-                    ->setAddress($branch['office_address']);
+                    ->setAddress($branch['office_address'])
+                    ->setBranchNumber($branch['ext_phone'])
+                    ->setCityPhone($branch['office_phone'])
+                    ->setOnDutyAgentPhone($branch['duty_agent'])
+                    ->setIsActive($branch['maytrans']);
             }
 
             $this->entityManager->persist($branchEntity);
-
-            $branchPhone = $this->entityManager->getRepository('DictionaryBundle:BranchPhones')
-                ->findBy(array('branchId' => $branchEntity->getId()));
-
-            if($branchPhone){
-                foreach($branchPhone as $item){
-                    $this->entityManager->remove($item);
-                }
-            }
-
-            if(is_array($branch['office_phone'])){
-                foreach($branch['office_phone'] as $phone){
-                    $branchPhone = new BranchPhones();
-                    $branchPhone->setPhone($phone)->setBrancheId($branchEntity);
-
-                    $this->entityManager->persist($branchPhone);
-                }
-            }
-            else{
-                $branchPhone = new BranchPhones();
-                $branchPhone->setPhone($branch['office_phone'])->setBrancheId($branchEntity);
-                $this->entityManager->persist($branchPhone);
-            }
-
             $this->entityManager->flush();
         }
     }
@@ -115,9 +99,6 @@ class BranchesManager
         $connection->executeUpdate($platform->getTruncateTableSQL(
                 $this->entityManager->getClassMetadata('DictionaryBundle:Branches')->getTableName(), true)
         );
-        $connection->executeUpdate($platform->getTruncateTableSQL(
-                $this->entityManager->getClassMetadata('DictionaryBundle:BranchPhones')->getTableName(), true)
-        );
 
         foreach($branches as $branch){
             $branchEntity = new Branches();
@@ -125,25 +106,13 @@ class BranchesManager
             $branchEntity
                 ->setOuterId($branch['id_office'])
                 ->setName($branch['office_name'])
-                ->setAddress($branch['office_address']);
+                ->setAddress($branch['office_address'])
+                ->setBranchNumber($branch['ext_phone'])
+                ->setCityPhone($branch['office_phone'])
+                ->setOnDutyAgentPhone($branch['duty_agent'])
+                ->setIsActive($branch['maytrans']);
 
             $this->entityManager->persist($branchEntity);
-
-            if(is_array($branch['office_phone'])){
-                foreach($branch['office_phone'] as $phone){
-                    $branchPhone = new BranchPhones();
-                    $branchPhone->setPhone($phone)->setBrancheId($branchEntity);
-
-                    $this->entityManager->persist($branchPhone);
-                }
-            }
-            else{
-                $branchPhone = new BranchPhones();
-                $branchPhone->setPhone($branch['office_phone'])->setBrancheId($branchEntity);
-
-                $this->entityManager->persist($branchPhone);
-            }
-
             $this->entityManager->flush();
         }
     }
