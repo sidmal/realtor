@@ -125,9 +125,38 @@ class UsersController extends Controller
             $manager = null;
         }
 
+        $position = null;
+
+        if($position = json_decode($entity->getRoles())){
+            $position = $position[0];
+
+            if($position == 'ROLE_MANAGER'){
+                $position = 'менеджер';
+            }
+            elseif($position == 'ROLE_OPERATOR'){
+                $position = 'оператор';
+            }
+            elseif($position == 'ROLE_AGENT'){
+                $position = 'агент';
+            }
+            elseif($position == 'ROLE_OFFICE_PRINCIPAL'){
+                $position = 'директор офиса';
+            }
+            elseif($position == 'ROLE_OFFICE_ADMINISTRATOR'){
+                $position = 'администратор';
+            }
+            elseif($position == 'ROLE_OFFICE_OPERATOR'){
+                $position = 'оператор офиса';
+            }
+            elseif($position == 'ROLE_FIRM_EMPLOYER'){
+                $position = 'сотрудник фирмы';
+            }
+        }
+
         return array(
             'entity'  => $entity,
             'manager' => $manager,
+            'position' => $position,
             'delete_form' => $deleteForm->createView(),
         );
     }

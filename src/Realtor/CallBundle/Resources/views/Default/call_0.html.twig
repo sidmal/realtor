@@ -62,13 +62,9 @@
                                     <label for="advertising-source">Источник рекламы:</label>
                                     <div class="input-group col-xs-12">
                                         <select class="form-control input-sm" name="advertising-source" id="advertising-source" required>
-                                            <option>газета</option>
-                                            <option>журнал</option>
-                                            <option>радио</option>
-                                            <option>телевизор</option>
-                                            <option>интернет</option>
-                                            <option>знакомые</option>
-                                            <option>другое</option>
+                                            {% for item in advertisingSource %}
+                                                <option value="{{ item.id }}">{{ item.name }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                 </div>

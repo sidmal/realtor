@@ -18,6 +18,15 @@ class DefaultController extends Controller
      */
     public function indexAction($callType)
     {
-        return $this->render('CallBundle:Default:index.html.twig', array('call_type' => $callType));
+        $advertisingSource = $this->getDoctrine()->getManager()
+            ->getRepository('DictionaryBundle:AdvertisingSource')->findBy(['isActive' => true]);
+
+        return $this->render(
+            'CallBundle:Default:index.html.twig',
+            [
+                'advertisingSource' => $advertisingSource,
+                'call_type' => $callType
+            ]
+        );
     }
 }
